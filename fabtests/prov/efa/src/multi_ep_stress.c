@@ -334,7 +334,7 @@ void *notification_handler(void *arg)
 							       &msg.info.rma,
 							       sizeof(struct rma_info));
 							if (topts.verbose) {
-								printf("Sender %d: Updated EP for receiver %d (fi_addr=%lu)\n",
+								printf("Sender %d: Updated EP for receiver %d (fi_addr=%" PRIu64 ")\n",
 								       ctx->worker_id,
 								       msg.info.worker_id,
 								       fi_addr);
@@ -376,7 +376,7 @@ void *notification_handler(void *arg)
 					if (ret == 1) {
 						ctx->peer_addrs[i] = fi_addr;
 						if (topts.verbose) {
-							printf("Sender %d: Re-inserted address for peer %d (fi_addr=%lu)\n",
+							printf("Sender %d: Re-inserted address for peer %d (fi_addr=%" PRIu64 ")\n",
 							       ctx->worker_id, i, fi_addr);
 						}
 					}
@@ -767,7 +767,7 @@ static void *run_sender_worker(void *arg)
 		}
 	}
 
-	printf("Sender %d: All cycles completed, total ops=%lu\n",
+	printf("Sender %d: All cycles completed, total ops=%" PRIu64 "\n",
 	       ctx->worker_id, total_ops);
 
 out:
@@ -795,7 +795,7 @@ static int notify_endpoint_update(struct receiver_context *ctx)
 		return ret;
 
 	// Fill RMA info
-	msg.info.rma.remote_addr = (uint64_t) ctx->rx_buf;
+	msg.info.rma.remote_addr = (uint64_t)(uintptr_t) ctx->rx_buf;
 	msg.info.rma.rkey = fi_mr_key(ctx->mr);
 	msg.info.rma.length = opts.transfer_size * topts.msgs_per_endpoint * ctx->num_senders;
 

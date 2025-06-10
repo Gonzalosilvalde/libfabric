@@ -361,7 +361,7 @@ cleanup_client:
 			FT_INFO("Not using implicit AV. Full address exchange \n");
 			for (i = 0; i < num_server_eps; i++) {
 				ft_init_av_dst_addr(server_avs[i], server_eps[i], &remote_fiaddr[i]);
-				FT_INFO("fi_addr %ld\n", remote_fiaddr[i]);
+				FT_INFO("fi_addr %" PRIu64 "\n", remote_fiaddr[i]);
 			}
 		}
 
@@ -474,13 +474,13 @@ int main(int argc, char **argv)
 			if (!ft_use_size(i, opts.sizes_enabled))
 				continue;
 			opts.transfer_size = test_size[i].size;
-			FT_INFO("Running test for message size: %ld\n", opts.transfer_size);
+			FT_INFO("Running test for message size: %zu\n", opts.transfer_size);
 			ret = run_test();
 			if (ret)
 				return ret;
 		}
 	} else {
-		FT_INFO("Running test for message size: %ld\n",
+		FT_INFO("Running test for message size: %zu\n",
 		       opts.transfer_size);
 		ret = run_test();
 		if (ret)

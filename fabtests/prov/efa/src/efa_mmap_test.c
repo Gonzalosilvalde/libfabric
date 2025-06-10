@@ -162,7 +162,7 @@ static int run_test(void)
 			failed_tests++;
 	}
 
-	printf("\nTest Summary: %ld/%ld tests passed\n", 
+	printf("\nTest Summary: %u/%u tests passed\n", 
 	       NUM_TEST_CASES - failed_tests, NUM_TEST_CASES);
 
 	return failed_tests > 0 ? -1 : 0;
